@@ -1,0 +1,18 @@
+@import 'globals.less';
+
+@addon: 'volto-slate';
+@addontype: 'extras';
+@addonelement: 'blocks';
+
+.loadAddonVariables();
+
+// how to stop using !important here!
+.separator {
+  display: inline-block !important;
+  height: 24px !important;
+  border-right: 1px solid #ddd !important;
+  margin: 0 !important;
+  margin-right: 3px !important;
+}
+
+.loadAddonOverrides();
