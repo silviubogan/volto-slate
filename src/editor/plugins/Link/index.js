@@ -14,7 +14,7 @@ export default function install(config) {
   const slate = config.settings.slate || {};
   config.settings.slate = slate;
 
-  slate.availableButtons.link = <LinkButton />;
+  slate.registerCustomButton('link', <LinkButton />);
 
   slate.decorators = [...(slate.decorators || []), withLinks];
 

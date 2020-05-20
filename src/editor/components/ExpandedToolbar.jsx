@@ -18,12 +18,12 @@ const ExpandedToolbar = React.forwardRef(
       onToggle();
     }
 
-    const { expandedToolbarButtons, availableButtons } = settings.slate;
+    const { expandedToolbarButtons, getAvailableButton } = settings.slate;
 
     return (
       <BasicToolbar {...props} className={className} ref={ref}>
         {expandedToolbarButtons.map((name, i) => (
-          <Fragment key={`${name}-${i}`}>{availableButtons[name]}</Fragment>
+          <Fragment key={`${name}-${i}`}>{getAvailableButton(name)}</Fragment>
         ))}
         <ToolbarToggleButton
           className={cx({ hidden: !showMasterToggleButton })}

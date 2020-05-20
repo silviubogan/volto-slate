@@ -12,14 +12,17 @@ const Toolbar = ({ mainToolbarShown, onToggle, showMasterToggleButton }) => {
   const ref = useRef();
 
   const editor = useSlate();
-  const { toolbarButtons, availableButtons } = settings.slate;
+  const { toolbarButtons, getAvailableButton } = settings.slate;
 
   if (typeof showMasterToggleButton !== 'boolean') {
     showMasterToggleButton = true;
   }
 
+  let [hidden, setHidden] = React.useState(true);
+
   function handleOnToggle() {
     onToggle();
+    setHidden(false);
   }
 
   useEffect(() => {
@@ -47,19 +50,31 @@ const Toolbar = ({ mainToolbarShown, onToggle, showMasterToggleButton }) => {
     }px`;
   });
 
+  function hide() {
+    setHidden(true);
+  }
+
   return (
-    <Portal>
-      <BasicToolbar className="slate-inline-toolbar" ref={ref}>
-        {toolbarButtons.map((name, i) => (
-          <Fragment key={`${name}-${i}`}>{availableButtons[name]}</Fragment>
-        ))}
-        <ToolbarToggleButton
-          className={cx({ hidden: !showMasterToggleButton })}
-          active={mainToolbarShown}
-          onToggle={handleOnToggle}
-        />
-      </BasicToolbar>
-    </Portal>
+    hidden && (
+      <Portal>
+        <BasicToolbar
+          className="slate-inline-toolbar"
+          ref={ref}
+          onMouseUp={hide}
+        >
+          {toolbarButtons.map((name, i) => (
+            <Fragment key={`${name}-${i}`}>
+              {getAvailableButton(name, hide)}
+            </Fragment>
+          ))}
+          <ToolbarToggleButton
+            className={cx({ hidden: !showMasterToggleButton })}
+            active={mainToolbarShown}
+            onToggle={handleOnToggle}
+          />
+        </BasicToolbar>
+      </Portal>
+    )
   );
 };
 

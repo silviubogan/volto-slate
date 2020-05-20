@@ -17,7 +17,7 @@ export function applyConfig(config) {
     restricted: false,
     mostUsed: true,
     blockHasOwnFocusManagement: false,
-    sidebarTab: 0,
+    sidebarTab: 0, // the Document tab
     security: {
       addPermission: [],
       view: [],

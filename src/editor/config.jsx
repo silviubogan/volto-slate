@@ -13,20 +13,67 @@ import quoteIcon from '@plone/volto/icons/quote.svg';
 import subheadingIcon from '@plone/volto/icons/subheading.svg';
 import underlineIcon from '@plone/volto/icons/underline.svg';
 
-export const availableButtons = {
-  bold: <MarkButton format="bold" icon={boldIcon} />,
-  italic: <MarkButton format="italic" icon={italicIcon} />,
-  underline: <MarkButton format="underline" icon={underlineIcon} />,
-  code: <MarkButton format="code" icon={codeIcon} />,
-  'heading-two': <BlockButton format="heading-two" icon={headingIcon} />,
-  'heading-three': <BlockButton format="heading-three" icon={subheadingIcon} />,
-  blockquote: <BlockButton format="block-quote" icon={quoteIcon} />,
-  'numbered-list': (
-    <BlockButton format="numbered-list" icon={listNumberedIcon} />
-  ),
-  'bulleted-list': <BlockButton format="bulleted-list" icon={listBulletIcon} />,
-  separator: <Separator />,
-};
+const customButtons = {};
+
+export function registerCustomButton(name, element, onMouseUp) {
+  element.onMouseUp = onMouseUp;
+  customButtons[name] = element;
+}
+
+export function getAvailableButton(name, onMouseUp) {
+  const btns = {
+    bold: <MarkButton format="bold" icon={boldIcon} onMouseUp={onMouseUp} />,
+    italic: (
+      <MarkButton format="italic" icon={italicIcon} onMouseUp={onMouseUp} />
+    ),
+    underline: (
+      <MarkButton
+        format="underline"
+        icon={underlineIcon}
+        onMouseUp={onMouseUp}
+      />
+    ),
+    code: <MarkButton format="code" icon={codeIcon} onMouseUp={onMouseUp} />,
+    'heading-two': (
+      <BlockButton
+        format="heading-two"
+        icon={headingIcon}
+        onMouseUp={onMouseUp}
+      />
+    ),
+    'heading-three': (
+      <BlockButton
+        format="heading-three"
+        icon={subheadingIcon}
+        onMouseUp={onMouseUp}
+      />
+    ),
+    blockquote: (
+      <BlockButton
+        format="block-quote"
+        icon={quoteIcon}
+        onMouseUp={onMouseUp}
+      />
+    ),
+    'numbered-list': (
+      <BlockButton
+        format="numbered-list"
+        icon={listNumberedIcon}
+        onMouseUp={onMouseUp}
+      />
+    ),
+    'bulleted-list': (
+      <BlockButton
+        format="bulleted-list"
+        icon={listBulletIcon}
+        onMouseUp={onMouseUp}
+      />
+    ),
+    separator: <Separator onMouseUp={onMouseUp} />,
+  };
+
+  return customButtons[name] || btns[name];
+}
 
 export const defaultToolbarButtons = [
   'bold',

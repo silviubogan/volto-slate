@@ -1,7 +1,13 @@
 import React from 'react';
 
-const Separator = () => {
-  return <span className="separator"></span>;
+const Separator = ({ onMouseUp }) => {
+  return (
+    <span
+      className="separator"
+      onMouseUp={onMouseUp}
+      role="presentation"
+    ></span>
+  );
 };
 
 export default Separator;
